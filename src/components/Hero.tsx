@@ -59,7 +59,7 @@ const Hero = () => {
             <img
               alt="Niloy Nag"
               className="w-full h-full object-cover"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAB0SSHRyxoUUdcBr0omccJIs1B748_g_mjdL0FWBFgtdCKHMcnDHHRAXAUd_bscuybdnyBKckICPC0066L67ggbuQa8W4dH3kWzUycu6Cv68S58yvV0UYlw9TAuhSWgcZ4cEFU27Y_pRL0DkQhrweKUQVNxmbx7Pj0VHSSAkvHDaBNBdzYXPTPARczpxY6k9mG3VdINNoba3GvS45XIjnFEXhHSemGRJvMNxFHe08P_WCyqMyZxrVjmM7RMwEJ4i3P0ndkZvX3oWg3"
+              src="/profile.png"
             />
           </div>
           {/* Orbiting Icons */}

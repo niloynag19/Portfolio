@@ -40,12 +40,12 @@ const About = () => {
           </p>
           <div className="flex gap-8 pt-4">
             <div className="flex flex-col">
-              <span className="text-3xl font-bold text-white">4+</span>
-              <span className="text-sm text-primary font-semibold">Years Experience</span>
+              <span className="text-3xl font-bold text-white">6+</span>
+              <span className="text-sm text-primary font-semibold">Months Experience</span>
             </div>
             <div className="w-px h-12 bg-white/10"></div>
             <div className="flex flex-col">
-              <span className="text-3xl font-bold text-white">20+</span>
+              <span className="text-3xl font-bold text-white">5+</span>
               <span className="text-sm text-primary font-semibold">Projects Done</span>
             </div>
           </div>
@@ -54,7 +54,10 @@ const About = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="btn-primary text-white px-8 py-4 rounded-full font-bold inline-flex items-center gap-2" 
-              href="#"
+              href="/resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              download="Niloy_Nag_Resume.pdf"
             >
               Download Resume <Download className="w-5 h-5" />
             </motion.a>

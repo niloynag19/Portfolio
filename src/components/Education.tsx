@@ -8,7 +8,7 @@ const Education = () => {
     {
       year: '2022 - 2026',
       degree: 'Diploma in Computer Science',
-      institution: 'Your Institute Name',
+      institution: 'Barishal Polytechnic Institute',
       details: 'Specialized focus on software engineering principles and systems design.',
       gpa: '3.70',
       color: 'primary',
@@ -16,7 +16,7 @@ const Education = () => {
     {
       year: '2021',
       degree: 'SSC',
-      institution: 'Your School Name',
+      institution: 'Palordi Model High School',
       details: 'Focused on core sciences and mathematics.',
       gpa: '5.00',
       color: 'secondary',
