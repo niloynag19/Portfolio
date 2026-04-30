@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Niloy Nag | Full Stack Developer</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#3b82f6", 
+                        "secondary": "#f43f5e", 
+                        "background": "#0b1121", 
+                        "surface": "#111827", 
+                        "on-surface": "#f8fafc", 
+                        "on-surface-variant": "#94a3b8", 
+                        "outline": "rgba(59, 130, 246, 0.2)", 
+                        "on-primary": "#ffffff",
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "12px",
+                        "base": "8px",
+                        "xl": "80px",
+                        "gutter": "24px",
+                        "md": "24px",
+                        "lg": "48px",
+                        "container-max": "1280px",
+                        "xs": "4px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-md": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                        "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "headline-lg": ["48px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(17, 24, 39, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            border-color: rgba(59, 130, 246, 0.5);
+            transform: translateY(-4px);
+        }
+        .gradient-card {
+            background: #0f172a;
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .gradient-card:hover {
+            border-color: rgba(59, 130, 246, 0.4);
+        }
+        /* Gradient Border for sections matching reference images */
+        .gradient-border-card {
+            position: relative;
+            background: #0f172a;
+            border-radius: 0.75rem;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+        .gradient-border-card::before {
+            content: "";
+            position: absolute;
+            inset: -1px;
+            border-radius: 0.75rem;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.5) 0%, rgba(244, 63, 94, 0.3) 100%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            z-index: -1;
+        }
+        .gradient-border-card:hover {
+            transform: translateY(-4px);
+        }
+        .gradient-border-card:hover::before {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.8) 0%, rgba(244, 63, 94, 0.6) 100%);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #3b82f6 0%, #f43f5e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .bg-glow {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(11, 17, 33, 0) 70%);
+            z-index: -1;
+            filter: blur(60px);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .skill-icon-container {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+        }
+    
+        @keyframes spin-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .animate-spin-slow {
+            animation: spin-slow 25s linear infinite;
+        }
+        #home {
+            background: radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 40%),
+                        radial-gradient(circle at 20% 80%, rgba(244, 63, 94, 0.05) 0%, transparent 40%);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #f43f5e 100%);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.4);
+        }
+        .btn-outline {
+            border: 1px solid rgba(59, 130, 246, 0.5);
+            transition: all 0.3s ease;
+        }
+        .btn-outline:hover {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: #3b82f6;
+        }
+    </style>
+<style>
+  html {
+    scroll-behavior: smooth;
+  }
+</style></head>
+<body class="bg-background text-on-surface-variant font-body-md overflow-x-hidden">
+<!-- Navigation -->
+<header class="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-white/5">
+<nav class="flex justify-between items-center max-w-7xl mx-auto px-6 h-16">
+<div class="text-xl font-bold tracking-tighter text-white">DevPortfolio</div>
+<div class="hidden md:flex items-center gap-8 font-plus-jakarta text-sm font-medium tracking-tight">
+<a class="text-primary transition-colors" href="#home">Home</a>
+<a class="text-on-surface-variant hover:text-white transition-colors" href="#about">About</a>
+<a class="text-on-surface-variant hover:text-white transition-colors" href="#skills">Skills</a>
+<a class="text-on-surface-variant hover:text-white transition-colors" href="#services">Services</a>
+<a class="text-on-surface-variant hover:text-white transition-colors" href="#projects">Projects</a>
+<a class="text-on-surface-variant hover:text-white transition-colors" href="#education">Education</a>
+<a class="text-on-surface-variant hover:text-white transition-colors" href="#contact">Contact</a>
+</div>
+<a class="btn-primary text-white px-6 py-2 rounded-full font-label-md shadow-lg shadow-blue-500/20" href="#">Resume</a>
+</nav>
+</header>
+<main>
+<!-- Hero Section -->
+<section class="relative min-h-screen flex items-center pt-16 px-6 max-w-7xl mx-auto overflow-hidden" id="home">
+<div class="bg-glow -top-20 -left-20"></div>
+<div class="grid lg:grid-cols-2 gap-12 items-center relative z-10">
+<!-- Left Content -->
+<div class="space-y-6">
+<h1 class="text-white font-display-lg">
+<span class="block text-5xl md:text-6xl mb-2">Hi, I'm</span>
+<span class="gradient-text text-6xl md:text-8xl tracking-tight">Niloy Nag</span>
+</h1>
+<p class="text-body-lg text-on-surface-variant max-w-lg leading-relaxed">
+                        I build scalable full-stack applications using React, Node.js, Express and MongoDB. I love clean code and fast UIs.
+                    </p>
+<div class="flex flex-wrap gap-4 pt-4">
+<a class="btn-primary text-white px-8 py-4 rounded-full font-label-md font-bold" href="#projects">
+                            View Projects
+                        </a>
+<a class="btn-outline text-white px-8 py-4 rounded-full font-label-md font-bold flex items-center gap-2 group" href="#contact">
+                            Let's Collaborate <span class="material-symbols-outlined text-xl group-hover:translate-x-1 transition-transform">north_east</span>
+</a>
+</div>
+</div>
+<!-- Right Content -->
+<div class="relative flex justify-center items-center h-[500px] md:h-[600px]">
+<div class="relative w-72 h-72 md:w-96 md:h-96 rounded-full overflow-hidden border-2 border-primary/20 shadow-[0_0_80px_rgba(59,130,246,0.15)] z-20">
+<img alt="Niloy Nag" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAB0SSHRyxoUUdcBr0omccJIs1B748_g_mjdL0FWBFgtdCKHMcnDHHRAXAUd_bscuybdnyBKckICPC0066L67ggbuQa8W4dH3kWzUycu6Cv68S58yvV0UYlw9TAuhSWgcZ4cEFU27Y_pRL0DkQhrweKUQVNxmbx7Pj0VHSSAkvHDaBNBdzYXPTPARczpxY6k9mG3VdINNoba3GvS45XIjnFEXhHSemGRJvMNxFHe08P_WCyqMyZxrVjmM7RMwEJ4i3P0ndkZvX3oWg3"/>
+</div>
+<!-- Orbiting Icons -->
+<div class="absolute inset-0 flex items-center justify-center animate-spin-slow">
+<div class="absolute -top-4 right-1/4 w-12 h-12 bg-slate-900/90 rounded-full flex items-center justify-center border border-primary/30 shadow-[0_0_15px_rgba(59,130,246,0.4)] rotate-[-45deg]">
+<span class="material-symbols-outlined text-primary text-2xl">architecture</span>
+</div>
+<div class="absolute top-1/4 -left-4 w-12 h-12 bg-slate-900/90 rounded-full flex items-center justify-center border border-primary/30 shadow-[0_0_15px_rgba(59,130,246,0.4)] rotate-[15deg]">
+<span class="material-symbols-outlined text-primary text-2xl">javascript</span>
+</div>
+<div class="absolute bottom-1/4 -right-4 w-12 h-12 bg-slate-900/90 rounded-full flex items-center justify-center border border-primary/30 shadow-[0_0_15px_rgba(59,130,246,0.4)] rotate-[120deg]">
+<span class="material-symbols-outlined text-primary text-2xl">terminal</span>
+</div>
+<div class="absolute -bottom-4 left-1/4 w-12 h-12 bg-slate-900/90 rounded-full flex items-center justify-center border border-primary/30 shadow-[0_0_15px_rgba(59,130,246,0.4)] rotate-[-160deg]">
+<span class="material-symbols-outlined text-primary text-2xl">database</span>
+</div>
+</div>
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-radial-gradient from-primary/10 via-transparent to-transparent blur-3xl -z-10 opacity-30"></div>
+</div>
+</div>
+</section>
+<!-- About Section -->
+<section class="py-xl px-6 max-w-7xl mx-auto" id="about">
+<div class="grid md:grid-cols-2 gap-16 items-center">
+<div class="order-2 md:order-1">
+<div class="relative glass-card p-1 rounded-2xl overflow-hidden aspect-video">
+<img alt="Technical Workspace" class="w-full h-full object-cover rounded-xl opacity-70" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCj1C8L3EKvNusammJPlIKcReiC-Byij9la6s5IuK-8XfFUl1lX3CfPjCEDoYasZa1j5JZKOvb0R9R_XRxJZFnD9_ymmu_Sh6cQX8kAbF_BMm9NOQW3Caxyf3R05AL7A7vBHQJwScO5f6oME_RdltjORS-hL2avb_is7n_xD1WY4aH8ZrF7hAEx7gFxEJsS5NJGKaUCiTIA10l2V7ihqhmfi591zpdpTeE7efNUWN9NNf98X_pcqVciLsb-ziIZU8FEiQr9p24IhO6Q"/>
+</div>
+</div>
+<div class="order-1 md:order-2 space-y-6">
+<h2 class="text-headline-lg font-headline-lg text-white">About <span class="text-primary">Me</span></h2>
+<p class="text-body-lg text-on-surface-variant leading-relaxed">My journey as a developer is driven by a deep curiosity for how things work under the hood. I am a passionate developer who loves bridging the gap between design and code, ensuring that every pixel serves a purpose while maintaining a robust technical foundation.</p>
+<p class="text-body-md text-on-surface-variant/80">Whether it's designing efficient database schemas with PostgreSQL or crafting reactive frontends with Next.js, I approach every project with a relentless focus on problem-solving and operational efficiency.</p>
+<div class="flex gap-4 pt-4">
+<div class="flex flex-col">
+<span class="text-headline-md font-headline-md text-white">4+</span>
+<span class="text-label-md text-primary">Years Experience</span>
+</div>
+<div class="w-px h-12 bg-white/10"></div>
+<div class="flex flex-col">
+<span class="text-headline-md font-headline-md text-white">20+</span>
+<span class="text-label-md text-primary">Projects Done</span>
+</div>
+</div>
+<div class="pt-4">
+<a class="btn-primary text-white px-8 py-4 rounded-full font-label-md font-bold inline-flex items-center gap-2" href="#">
+                            Download Resume <span class="material-symbols-outlined text-xl">download</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- Skills Section -->
+<section class="py-xl px-6 max-w-7xl mx-auto relative" id="skills">
+<div class="bg-glow top-0 right-0 opacity-20"></div>
+<div class="text-center mb-16 space-y-4">
+<h2 class="text-headline-lg font-headline-lg text-white">Skills &amp; Technologies</h2>
+<p class="text-body-md text-on-surface-variant max-w-2xl mx-auto">I work with modern tools and technologies to build fast, scalable and efficient web applications.</p>
+</div>
+<!-- Updated Grid for Skills: 3 columns, 2 rows -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-x-24 gap-y-16 items-start">
+<!-- Left: Technical Skills -->
+<div class="space-y-10">
+<div class="inline-block">
+<h3 class="text-2xl font-bold text-white mb-2">Technical Skills</h3>
+<div class="h-1 w-12 bg-primary rounded-full"></div>
+</div>
+<div class="space-y-8">
+<!-- HTML -->
+<div class="space-y-3">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl">html</span>
+<span class="text-white font-semibold tracking-tight">HTML</span>
+</div>
+<span class="bg-surface px-3 py-1 rounded-md text-xs font-bold text-primary border border-primary/20">90%</span>
+</div>
+<div class="h-2 bg-white/5 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full shadow-[0_0_15px_rgba(59,130,246,0.4)]" style="width: 90%"></div>
+</div>
+</div>
+<!-- CSS -->
+<div class="space-y-3">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl">css</span>
+<span class="text-white font-semibold tracking-tight">CSS</span>
+</div>
+<span class="bg-surface px-3 py-1 rounded-md text-xs font-bold text-primary border border-primary/20">60%</span>
+</div>
+<div class="h-2 bg-white/5 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full shadow-[0_0_15px_rgba(59,130,246,0.4)]" style="width: 60%"></div>
+</div>
+</div>
+<!-- JavaScript -->
+<div class="space-y-3">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl">javascript</span>
+<span class="text-white font-semibold tracking-tight">JavaScript</span>
+</div>
+<span class="bg-surface px-3 py-1 rounded-md text-xs font-bold text-primary border border-primary/20">85%</span>
+</div>
+<div class="h-2 bg-white/5 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full shadow-[0_0_15px_rgba(59,130,246,0.4)]" style="width: 85%"></div>
+</div>
+</div>
+<!-- Python -->
+<div class="space-y-3">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl">terminal</span>
+<span class="text-white font-semibold tracking-tight">Python</span>
+</div>
+<span class="bg-surface px-3 py-1 rounded-md text-xs font-bold text-primary border border-primary/20">50%</span>
+</div>
+<div class="h-2 bg-white/5 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full shadow-[0_0_15px_rgba(59,130,246,0.4)]" style="width: 50%"></div>
+</div>
+</div>
+<!-- React -->
+<div class="space-y-3">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl">architecture</span>
+<span class="text-white font-semibold tracking-tight">React</span>
+</div>
+<span class="bg-surface px-3 py-1 rounded-md text-xs font-bold text-primary border border-primary/20">75%</span>
+</div>
+<div class="h-2 bg-white/5 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full shadow-[0_0_10px_rgba(59,130,246,0.5)]" style="width: 75%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right: Professional Skills -->
+<div class="space-y-10">
+<div class="inline-block">
+<h3 class="text-2xl font-bold text-white mb-2">Professional Skills</h3>
+<div class="h-1 w-12 bg-primary rounded-full"></div>
+</div>
+<div class="grid grid-cols-2 gap-x-12 gap-y-10">
+<!-- Creativity -->
+<div class="flex flex-col items-center gap-4">
+<div class="relative w-32 h-32 flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-white/5" cx="64" cy="64" fill="transparent" r="58" stroke="currentColor" stroke-width="6"></circle>
+<circle class="text-primary drop-shadow-[0_0_12px_rgba(59,130,246,0.5)]" cx="64" cy="64" fill="transparent" r="58" stroke="currentColor" stroke-dasharray="364.42" stroke-dashoffset="36.44" stroke-linecap="round" stroke-width="6"></circle>
+</svg>
+<span class="absolute text-white font-bold text-2xl">90%</span>
+</div>
+<span class="text-on-surface-variant font-semibold tracking-tight">Creativity</span>
+</div>
+<!-- Communication -->
+<div class="flex flex-col items-center gap-4">
+<div class="relative w-32 h-32 flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-white/5" cx="64" cy="64" fill="transparent" r="58" stroke="currentColor" stroke-width="6"></circle>
+<circle class="text-primary drop-shadow-[0_0_12px_rgba(59,130,246,0.5)]" cx="64" cy="64" fill="transparent" r="58" stroke="currentColor" stroke-dasharray="364.42" stroke-dashoffset="127.55" stroke-linecap="round" stroke-width="6"></circle>
+</svg>
+<span class="absolute text-white font-bold text-2xl">65%</span>
+</div>
+<span class="text-on-surface-variant font-semibold tracking-tight">Communication</span>
+</div>
+<!-- Problem Solving -->
+<div class="flex flex-col items-center gap-4">
+<div class="relative w-32 h-32 flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-white/5" cx="64" cy="64" fill="transparent" r="58" stroke="currentColor" stroke-width="6"></circle>
+<circle class="text-primary drop-shadow-[0_0_12px_rgba(59,130,246,0.5)]" cx="64" cy="64" fill="transparent" r="58" stroke="currentColor" stroke-dasharray="364.42" stroke-dashoffset="91.1" stroke-linecap="round" stroke-width="6"></circle>
+</svg>
+<span class="absolute text-white font-bold text-2xl">75%</span>
+</div>
+<span class="text-on-surface-variant font-semibold tracking-tight">Problem Solving</span>
+</div>
+<!-- Teamwork -->
+<div class="flex flex-col items-center gap-4">
+<div class="relative w-32 h-32 flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-white/5" cx="64" cy="64" fill="transparent" r="58" stroke="currentColor" stroke-width="6"></circle>
+<circle class="text-primary drop-shadow-[0_0_12px_rgba(59,130,246,0.5)]" cx="64" cy="64" fill="transparent" r="58" stroke="currentColor" stroke-dasharray="364.42" stroke-dashoffset="54.66" stroke-linecap="round" stroke-width="6"></circle>
+</svg>
+<span class="absolute text-white font-bold text-2xl">85%</span>
+</div>
+<span class="text-on-surface-variant font-semibold tracking-tight">Teamwork</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Services Section -->
+<section class="py-xl px-6 max-w-7xl mx-auto" id="services">
+<div class="text-center mb-16 space-y-4">
+<h2 class="text-headline-lg font-headline-lg text-white">Services I Provide</h2>
+<p class="text-body-md text-on-surface-variant max-w-2xl mx-auto">I offer design and development services focused on building fast, modern, and user-friendly digital experiences.</p>
+</div>
+<!-- Updated Grid for Services: 4 columns, 2 rows -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Service 1 -->
+<div class="gradient-border-card p-8 flex flex-col items-center text-center">
+<div class="mb-6">
+<span class="material-symbols-outlined text-5xl text-primary">developer_mode</span>
+</div>
+<h3 class="text-white font-bold mb-4 text-lg">Full-Stack Web Development</h3>
+<p class="text-xs text-on-surface-variant leading-relaxed">End-to-end web applications using React, Node.js, Express, and MongoDB with clean architecture and scalable code.</p>
+</div>
+<!-- Service 2 -->
+<div class="gradient-border-card p-8 flex flex-col items-center text-center">
+<div class="mb-6">
+<span class="material-symbols-outlined text-5xl text-primary">devices</span>
+</div>
+<h3 class="text-white font-bold mb-4 text-lg">Frontend Development</h3>
+<p class="text-xs text-on-surface-variant leading-relaxed">Fast, responsive, and user-friendly interfaces built with React and modern UI frameworks like Tailwind CSS.</p>
+</div>
+<!-- Service 3 -->
+<div class="gradient-border-card p-8 flex flex-col items-center text-center">
+<div class="mb-6">
+<span class="material-symbols-outlined text-5xl text-primary">settings_input_component</span>
+</div>
+<h3 class="text-white font-bold mb-4 text-lg">Backend &amp; API Development</h3>
+<p class="text-xs text-on-surface-variant leading-relaxed">Secure and efficient REST APIs using Node.js and Express, optimized for performance and scalability.</p>
+</div>
+<!-- Service 4 -->
+<div class="gradient-border-card p-8 flex flex-col items-center text-center">
+<div class="mb-6">
+<span class="material-symbols-outlined text-5xl text-primary">storage</span>
+</div>
+<h3 class="text-white font-bold mb-4 text-lg">Database Design &amp; Management</h3>
+<p class="text-xs text-on-surface-variant leading-relaxed">Well-structured MongoDB databases with optimized queries for speed, reliability, and data integrity.</p>
+</div>
+<!-- Service 5 -->
+<div class="gradient-border-card p-8 flex flex-col items-center text-center">
+<div class="mb-6">
+<span class="material-symbols-outlined text-5xl text-primary">lock</span>
+</div>
+<h3 class="text-white font-bold mb-4 text-lg">Authentication &amp; Authorization</h3>
+<p class="text-xs text-on-surface-variant leading-relaxed">Implementation of secure login systems using JWT, role-based access control, and best security practices.</p>
+</div>
+<!-- Service 6 -->
+<div class="gradient-border-card p-8 flex flex-col items-center text-center">
+<div class="mb-6">
+<span class="material-symbols-outlined text-5xl text-primary">shopping_cart</span>
+</div>
+<h3 class="text-white font-bold mb-4 text-lg">E-Commerce Development</h3>
+<p class="text-xs text-on-surface-variant leading-relaxed">Product listings, cart systems, checkout flows, and payment gateway integrations for demo or real projects.</p>
+</div>
+<!-- Service 7 -->
+<div class="gradient-border-card p-8 flex flex-col items-center text-center">
+<div class="mb-6">
+<span class="material-symbols-outlined text-5xl text-primary">speed</span>
+</div>
+<h3 class="text-white font-bold mb-4 text-lg">Performance Optimization</h3>
+<p class="text-xs text-on-surface-variant leading-relaxed">Improving load times, API response speed, and overall application performance for better user experience.</p>
+</div>
+<!-- Service 8 -->
+<div class="gradient-border-card p-8 flex flex-col items-center text-center">
+<div class="mb-6">
+<span class="material-symbols-outlined text-5xl text-primary">cloud_upload</span>
+</div>
+<h3 class="text-white font-bold mb-4 text-lg">Deployment &amp; Hosting Support</h3>
+<p class="text-xs text-on-surface-variant leading-relaxed">Deploying applications on cloud platforms with proper environment setup and production-ready configuration.</p>
+</div>
+</div>
+</section>
+<!-- Projects Section -->
+<section class="py-xl px-6 max-w-7xl mx-auto" id="projects">
+<div class="flex justify-between items-end mb-16">
+<div class="space-y-2">
+<h2 class="text-headline-lg font-headline-lg text-white">Featured Work</h2>
+<p class="text-body-md text-on-surface-variant">A collection of projects that showcase my technical skills.</p>
+</div>
+<a class="text-primary hover:text-white transition-colors flex items-center gap-2 font-label-md" href="#">
+                    Explore All <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8"><!-- Project 1: FoodHub -->
+<div class="gradient-card rounded-2xl p-6 flex flex-col group overflow-hidden">
+<div class="relative aspect-[4/3] rounded-xl overflow-hidden mb-6 border border-white/5">
+<img alt="FoodHub Project" class="w-full h-full object-cover transition-transform group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBohOOSUkbjcpHOrDI4XYtQXUEO_zqSsBTo7Jths97VR9U_6HxAqWKCKsWdYqYUKYH_CgvEe0VL9Xu8lnOiZ70bP8HwtzpUrPiZOH_l6ZnwCKGH7jZmogUG0t3P2_RfrRzUF0ff60QENYk9W5KKeRLHiPnrtni_EGH-z38FfVIqY4EgpQwlMwHBq2xKy8E5q-D4KAMfzDf0UtXXG7lXHqlJaTsgwhLUXoHTKHbqXMbB5KG4OppbPVucNLy99_uMU7DW0BWvmEbju-g3"/>
+</div>
+<h3 class="text-2xl font-bold text-white mb-2">FoodHub</h3>
+<p class="text-on-surface-variant/80 text-sm mb-6 flex-grow">A full-stack food ordering platform with role-based access for users, providers, and admin.</p>
+<div class="flex flex-wrap gap-2 mb-8">
+<span class="bg-primary/10 text-primary text-xs px-4 py-1.5 rounded-full border border-primary/20">Next.js</span>
+<span class="bg-primary/10 text-primary text-xs px-4 py-1.5 rounded-full border border-primary/20">Node.js</span>
+<span class="bg-primary/10 text-primary text-xs px-4 py-1.5 rounded-full border border-primary/20">PostgreSQL</span>
+<span class="bg-primary/10 text-primary text-xs px-4 py-1.5 rounded-full border border-primary/20">Prisma</span>
+</div>
+<div class="flex gap-4">
+<a class="flex-1 btn-primary text-white py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2" href="#">
+                            GitHub <span class="material-symbols-outlined text-sm">north_east</span>
+</a>
+<a class="flex-1 bg-slate-800 text-white py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 hover:bg-slate-700 transition-colors" href="#">
+                            Live Demo <span class="material-symbols-outlined text-sm">north_east</span>
+</a>
+</div>
+</div>
+<!-- Project 2: Eco Spark -->
+<div class="gradient-card rounded-2xl p-6 flex flex-col group overflow-hidden">
+<div class="relative aspect-[4/3] rounded-xl overflow-hidden mb-6 border border-white/5">
+<img alt="Eco Spark Project" class="w-full h-full object-cover transition-transform group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC76vLBvk9SLbOLt3iJA2cFCM0CGZPEabDJSPOh9xaCy3UZWykOVKhwPhqWmlnk6mOSxNIT309tTcHmZ3w_2hEDi3wz1fJcqiHQrzx4A6EDxyRrGv0oEpUPatMk8N40xsU1Xum21oILH9uL3TIHAUVPklQMC9SwgsEyER6ywT1iFmyIdyMLGqb1H0HLrJhtZvyUB2q2y6-NtJIdW7PALYdJW0z3OGzwFJi4VQbtfY92Lpam9WrAvM9U-iFDmTn5IqjGgW1kiFmIJOOU"/>
+</div>
+<h3 class="text-2xl font-bold text-white mb-2">Eco Spark</h3>
+<p class="text-on-surface-variant/80 text-sm mb-6 flex-grow">An eco-friendly awareness platform promoting sustainable living and green initiatives.</p>
+<div class="flex flex-wrap gap-2 mb-8">
+<span class="bg-primary/10 text-primary text-xs px-4 py-1.5 rounded-full border border-primary/20">React</span>
+<span class="bg-primary/10 text-primary text-xs px-4 py-1.5 rounded-full border border-primary/20">Node.js</span>
+<span class="bg-primary/10 text-primary text-xs px-4 py-1.5 rounded-full border border-primary/20">MongoDB</span>
+</div>
+<div class="flex gap-4">
+<a class="flex-1 btn-primary text-white py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2" href="#">
+                            GitHub <span class="material-symbols-outlined text-sm">north_east</span>
+</a>
+<a class="flex-1 bg-slate-800 text-white py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 hover:bg-slate-700 transition-colors" href="#">
+                            Live Demo <span class="material-symbols-outlined text-sm">north_east</span>
+</a>
+</div>
+</div>
+<!-- Project 3: PH Healthcare Management System -->
+<div class="gradient-card rounded-2xl p-6 flex flex-col group overflow-hidden">
+<div class="relative aspect-[4/3] rounded-xl overflow-hidden mb-6 border border-white/5">
+<img alt="PH Healthcare Management System" class="w-full h-full object-cover transition-transform group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjwyjiHf37DdTsH-afs5iRAysB59krZS8YpETVCij1HyNXdcJkTIFw3zS8Sn_luJBYvwtXDN5Tx1hJhkeF5FCl6XDmBz8FaTavWLTdORuxdqeYLn3bdYUR7ofJPjPl8AGFOjoaUpz16GTTeNlp5XVIVZEYcJR6oXY9FF_PqjcpmYu11K8hAQ1xbHFyNcFeRyEHgaIRg6UBO9feav2q-vpGGXkB-cyfOty2qxzIP1oAsZ9ZConyc003L228NM-VOtWmNtQunPTdFZFw"/>
+</div>
+<h3 class="text-2xl font-bold text-white mb-2">PH Healthcare Management System</h3>
+<p class="text-on-surface-variant/80 text-sm mb-6 flex-grow">A healthcare platform to manage patients, doctors, and appointments efficiently.</p>
+<div class="flex flex-wrap gap-2 mb-8">
+<span class="bg-primary/10 text-primary text-xs px-4 py-1.5 rounded-full border border-primary/20">Next.js</span>
+<span class="bg-primary/10 text-primary text-xs px-4 py-1.5 rounded-full border border-primary/20">Express.js</span>
+<span class="bg-primary/10 text-primary text-xs px-4 py-1.5 rounded-full border border-primary/20">MongoDB</span>
+</div>
+<div class="flex gap-4">
+<a class="flex-1 btn-primary text-white py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2" href="#">
+                            GitHub <span class="material-symbols-outlined text-sm">north_east</span>
+</a>
+<a class="flex-1 bg-slate-800 text-white py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 hover:bg-slate-700 transition-colors" href="#">
+                            Live Demo <span class="material-symbols-outlined text-sm">north_east</span>
+</a>
+</div>
+</div>
+<!-- Project 4: Study and Travel -->
+<div class="gradient-card rounded-2xl p-6 flex flex-col group overflow-hidden">
+<div class="relative aspect-[4/3] rounded-xl overflow-hidden mb-6 border border-white/5">
+<img alt="Study and Travel Project" class="w-full h-full object-cover transition-transform group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBohOOSUkbjcpHOrDI4XYtQXUEO_zqSsBTo7Jths97VR9U_6HxAqWKCKsWdYqYUKYH_CgvEe0VL9Xu8lnOiZ70bP8HwtzpUrPiZOH_l6ZnwCKGH7jZmogUG0t3P2_RfrRzUF0ff60QENYk9W5KKeRLHiPnrtni_EGH-z38FfVIqY4EgpQwlMwHBq2xKy8E5q-D4KAMfzDf0UtXXG7lXHqlJaTsgwhLUXoHTKHbqXMbB5KG4OppbPVucNLy99_uMU7DW0BWvmEbju-g3"/>
+</div>
+<h3 class="text-2xl font-bold text-white mb-2">Study and Travel</h3>
+<p class="text-on-surface-variant/80 text-sm mb-6 flex-grow">A platform to explore study opportunities abroad along with travel planning features.</p>
+<div class="flex flex-wrap gap-2 mb-8">
+<span class="bg-primary/10 text-primary text-xs px-4 py-1.5 rounded-full border border-primary/20">React</span>
+<span class="bg-primary/10 text-primary text-xs px-4 py-1.5 rounded-full border border-primary/20">Firebase</span>
+</div>
+<div class="flex gap-4">
+<a class="flex-1 btn-primary text-white py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2" href="#">
+                            GitHub <span class="material-symbols-outlined text-sm">north_east</span>
+</a>
+<a class="flex-1 bg-slate-800 text-white py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 hover:bg-slate-700 transition-colors" href="#">
+                            Live Demo <span class="material-symbols-outlined text-sm">north_east</span>
+</a>
+</div>
+</div>
+<!-- Project 5: Vehicle Rental System -->
+<div class="gradient-card rounded-2xl p-6 flex flex-col group overflow-hidden">
+<div class="relative aspect-[4/3] rounded-xl overflow-hidden mb-6 border border-white/5">
+<img alt="Vehicle Rental System" class="w-full h-full object-cover transition-transform group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC76vLBvk9SLbOLt3iJA2cFCM0CGZPEabDJSPOh9xaCy3UZWykOVKhwPhqWmlnk6mOSxNIT309tTcHmZ3w_2hEDi3wz1fJcqiHQrzx4A6EDxyRrGv0oEpUPatMk8N40xsU1Xum21oILH9uL3TIHAUVPklQMC9SwgsEyER6ywT1iFmyIdyMLGqb1H0HLrJhtZvyUB2q2y6-NtJIdW7PALYdJW0z3OGzwFJi4VQbtfY92Lpam9WrAvM9U-iFDmTn5IqjGgW1kiFmIJOOU"/>
+</div>
+<h3 class="text-2xl font-bold text-white mb-2">Vehicle Rental System</h3>
+<p class="text-on-surface-variant/80 text-sm mb-6 flex-grow">A rental platform for booking vehicles with real-time availability and management system.</p>
+<div class="flex flex-wrap gap-2 mb-8">
+<span class="bg-primary/10 text-primary text-xs px-4 py-1.5 rounded-full border border-primary/20">Node.js</span>
+<span class="bg-primary/10 text-primary text-xs px-4 py-1.5 rounded-full border border-primary/20">Express.js</span>
+<span class="bg-primary/10 text-primary text-xs px-4 py-1.5 rounded-full border border-primary/20">MongoDB</span>
+</div>
+<div class="flex gap-4">
+<a class="flex-1 btn-primary text-white py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2" href="#">
+                            GitHub <span class="material-symbols-outlined text-sm">north_east</span>
+</a>
+<a class="flex-1 bg-slate-800 text-white py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 hover:bg-slate-700 transition-colors" href="#">
+                            Live Demo <span class="material-symbols-outlined text-sm">north_east</span>
+</a>
+</div>
+</div></div><div class="flex justify-center items-center gap-2 mt-12">
+<a class="w-10 h-10 flex items-center justify-center rounded-lg border border-white/10 text-on-surface-variant hover:border-primary hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined text-xl">chevron_left</span>
+</a>
+<a class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-white font-bold text-sm shadow-lg shadow-primary/20" href="#">1</a>
+<a class="w-10 h-10 flex items-center justify-center rounded-lg border border-white/10 text-on-surface-variant hover:border-primary hover:text-primary transition-all text-sm font-medium" href="#">2</a>
+<a class="w-10 h-10 flex items-center justify-center rounded-lg border border-white/10 text-on-surface-variant hover:border-primary hover:text-primary transition-all text-sm font-medium" href="#">3</a>
+<span class="text-white/20 mx-1">...</span>
+<a class="w-10 h-10 flex items-center justify-center rounded-lg border border-white/10 text-on-surface-variant hover:border-primary hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined text-xl">chevron_right</span>
+</a>
+</div>
+</section>
+<!-- Education Section -->
+<section class="py-xl px-6 max-w-7xl mx-auto" id="education">
+<h2 class="text-headline-lg font-headline-lg text-white mb-12 text-center">Education</h2>
+<div class="relative max-w-4xl mx-auto">
+<div class="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary to-secondary opacity-20 transform md:-translate-x-1/2"></div>
+<div class="space-y-12">
+<div class="relative flex flex-col md:flex-row items-center">
+<div class="flex-1 md:pr-16 md:text-right mb-4 md:mb-0">
+<div class="gradient-card p-6 rounded-xl inline-block w-full">
+<span class="text-label-md text-primary font-bold">2022 - 2026</span>
+<h3 class="text-headline-md text-white mt-1">Diploma in Computer Science</h3>
+<p class="text-on-surface-variant mt-2 font-medium">Your Institute Name — Specialized focus on software engineering principles and systems design.</p>
+<p class="text-primary mt-1 font-bold">CGPA: 3.70</p>
+</div>
+</div>
+<div class="absolute left-[-5px] md:left-1/2 w-3 h-3 bg-primary rounded-full transform md:-translate-x-1/2 shadow-[0_0_15px_rgba(59,130,246,0.8)] z-10"></div>
+<div class="flex-1 md:pl-16 hidden md:block"></div>
+</div>
+<div class="relative flex flex-col md:flex-row items-center">
+<div class="flex-1 md:pr-16 hidden md:block"></div>
+<div class="absolute left-[-5px] md:left-1/2 w-3 h-3 bg-secondary rounded-full transform md:-translate-x-1/2 shadow-[0_0_15px_rgba(244,63,94,0.8)] z-10"></div>
+<div class="flex-1 md:pl-16">
+<div class="gradient-card p-6 rounded-xl inline-block w-full">
+<span class="text-label-md text-secondary font-bold">2021</span>
+<h3 class="text-headline-md text-white mt-1">SSC</h3>
+<p class="text-on-surface-variant mt-2 font-medium">Your School Name — Focused on core sciences and mathematics.</p>
+<p class="text-secondary mt-1 font-bold">GPA: 5.00</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Contact Section -->
+<section class="py-xl px-6 max-w-7xl mx-auto relative" id="contact">
+<div class="bg-glow bottom-0 left-1/2 -translate-x-1/2 opacity-20"></div>
+<div class="grid lg:grid-cols-2 gap-16">
+<div class="space-y-8">
+<h2 class="text-headline-lg font-headline-lg text-white">Get in <span class="gradient-text">Touch</span></h2>
+<p class="text-body-lg text-on-surface-variant max-w-md">
+                        Have a question or a project in mind? I'd love to hear from you. Let's build something amazing together.
+                    </p>
+<div class="space-y-6">
+<div class="flex items-center gap-4 group">
+<div class="w-12 h-12 rounded-full glass-card flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">mail</span>
+</div>
+<div>
+<p class="text-label-md text-on-surface-variant">Email</p>
+<p class="text-body-md text-white font-medium">hello@niloynag.dev</p>
+</div>
+</div>
+<div class="flex items-center gap-4 group">
+<div class="w-12 h-12 rounded-full glass-card flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">call</span>
+</div>
+<div>
+<p class="text-label-md text-on-surface-variant">Phone</p>
+<p class="text-body-md text-white font-medium">+1 (234) 567-890</p>
+</div>
+</div>
+<div class="flex items-center gap-4 group">
+<div class="w-12 h-12 rounded-full glass-card flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">location_on</span>
+</div>
+<div>
+<p class="text-label-md text-on-surface-variant">Location</p>
+<p class="text-body-md text-white font-medium">San Francisco, CA</p>
+</div>
+</div>
+</div>
+</div>
+<div class="gradient-card p-8 rounded-2xl border-white/5">
+<form action="#" class="space-y-6">
+<div class="grid md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="text-label-md text-on-surface-variant ml-1">Name</label>
+<input class="w-full bg-slate-950 border border-white/10 focus:border-primary focus:ring-1 focus:ring-primary/20 rounded-lg p-4 text-white placeholder-slate-500 transition-all" placeholder="John Doe" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="text-label-md text-on-surface-variant ml-1">Email</label>
+<input class="w-full bg-slate-950 border border-white/10 focus:border-primary focus:ring-1 focus:ring-primary/20 rounded-lg p-4 text-white placeholder-slate-500 transition-all" placeholder="john@example.com" type="email"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-label-md text-on-surface-variant ml-1">Message</label>
+<textarea class="w-full bg-slate-950 border border-white/10 focus:border-primary focus:ring-1 focus:ring-primary/20 rounded-lg p-4 text-white placeholder-slate-500 transition-all" placeholder="How can I help you?" rows="5"></textarea>
+</div>
+<button class="w-full btn-primary text-white py-4 rounded-full font-label-md font-bold" type="submit">
+                            Send Message
+                        </button>
+</form>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-[#080c14] border-t border-white/5 w-full py-12">
+<div class="flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto px-6 gap-8">
+<div class="flex flex-col items-center md:items-start gap-4">
+<div class="text-lg font-bold text-white">Niloy Nag</div>
+<p class="font-plus-jakarta text-xs text-on-surface-variant">© 2024 Developer Portfolio. Built with precision.</p>
+</div>
+<div class="flex gap-8">
+<a class="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-2 font-label-md" href="#">
+<span class="material-symbols-outlined text-xl">code</span> GitHub
+                </a>
+<a class="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-2 font-label-md" href="#">
+<span class="material-symbols-outlined text-xl">link</span> LinkedIn
+                </a>
+<a class="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-2 font-label-md" href="#">
+<span class="material-symbols-outlined text-xl">person</span> Portfolio
+                </a>
+</div>
+</div>
+</footer>
+<a aria-label="Back to top" class="fixed bottom-8 right-8 z-[100] w-12 h-12 rounded-full btn-primary flex items-center justify-center text-white shadow-2xl hover:scale-110 transition-transform cursor-pointer" href="#home">
+<span class="material-symbols-outlined">arrow_upward</span>
+</a></body></html>
